@@ -19,7 +19,7 @@ def get_university(input_value):
 
         print(result)
         return result
-
+#question b
 def faculty_count(input_value):
    with db.cursor() as cursor:
        sql = """
@@ -61,6 +61,7 @@ def publication_count(input_value):
         #print(result)
         return result
 
+#question a (graph)
 def publication_count_year(input_value,yr):
     with db.cursor() as cursor:
         sql = """
@@ -75,6 +76,71 @@ def publication_count_year(input_value,yr):
         result = cursor.fetchall()
         print(result)
         return result
+#question c
+keyword_id = 159691111
+keyword = 'meow'
+
+def insert_keyword(keyword_id, keyword):
+    with db.cursor() as cursor:
+
+        # SQL query to insert a new keyword into the 'keyword' table
+        sql = """
+        INSERT INTO keyword (id, name)
+        VALUES (%s, %s)
+        """
+        # Execute the query with parameters
+        cursor.execute(sql, (keyword_id, keyword))
+        # Commit the changes to the database
+        db.commit()
+        # Print the number of affected rows (should be 1)
+        print(f"Inserted {cursor.rowcount} row(s).")
+        print(f"add keyword",keyword )
+        with db.cursor() as cursor:
+            sql2 = """
+             SELECT count(DISTINCT k.id) AS k_count 
+             FROM keyword k;
+
+             """
+            cursor.execute(sql2)
+            result = cursor.fetchall()
+        # Return the last inserted ID
+        print (result)
+        return cursor.lastrowid
+
+
+result = insert_keyword(keyword_id, keyword)
+
+#question d
+
+def delete_keyword( keyword):
+    with db.cursor() as cursor:
+        # SQL query to delete a row from the 'keyword' table based on the ID and name
+        sql = """
+        DELETE FROM keyword
+        WHERE name = %s
+        """
+        # Execute the query with parameters
+        cursor.execute(sql, ( keyword))
+        # Commit the changes to the database
+        db.commit()
+        # Print the number of affected rows (should be 1)
+        print(f"Deleted {cursor.rowcount} row(s).")
+        print(f"delete keyword",keyword )
+        # Return the number of deleted rows
+        with db.cursor() as cursor:
+            sql2 = """
+             SELECT count(DISTINCT k.id) AS k_count2 
+             FROM keyword k;
+
+             """
+            cursor.execute(sql2)
+            result = cursor.fetchall()
+        # Return the last inserted ID
+        print (result)
+        return cursor.rowcount
+
+result = delete_keyword( keyword)
+
 
 #input_value = 'University of Rochester'
 #result = get_university(input_value)
