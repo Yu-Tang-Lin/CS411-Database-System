@@ -1,4 +1,6 @@
 import pymysql
+#import mysql.connector
+
 
 db = pymysql.connect(host='localhost',
                 user='root',
@@ -62,7 +64,7 @@ def publication_count(input_value):
         return result
 
 #question a (graph)
-def publication_count_year(input_value,yr):
+def publication_count_year(input_value,yr=2023):
     with db.cursor() as cursor:
         sql = """
             select u.name, count(p.id) as count4 from faculty f
@@ -77,7 +79,7 @@ def publication_count_year(input_value,yr):
         print(result)
         return result
 #question c
-keyword_id = 159691111
+keyword_id = 1596911121
 keyword = 'meow'
 
 def insert_keyword(keyword_id, keyword):
@@ -99,17 +101,16 @@ def insert_keyword(keyword_id, keyword):
             sql2 = """
              SELECT count(DISTINCT k.id) AS k_count 
              FROM keyword k;
-
              """
             cursor.execute(sql2)
             result = cursor.fetchall()
         # Return the last inserted ID
-        print (result)
-        return cursor.lastrowid
+        #print (result)
+        return result
 
 
 result = insert_keyword(keyword_id, keyword)
-
+print(result)
 #question d
 
 def delete_keyword( keyword):
@@ -131,16 +132,15 @@ def delete_keyword( keyword):
             sql2 = """
              SELECT count(DISTINCT k.id) AS k_count2 
              FROM keyword k;
-
              """
             cursor.execute(sql2)
             result = cursor.fetchall()
         # Return the last inserted ID
-        print (result)
-        return cursor.rowcount
+        # print (result)
+        return result
 
 result = delete_keyword( keyword)
-
+print(result)
 
 #input_value = 'University of Rochester'
 #result = get_university(input_value)
