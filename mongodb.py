@@ -14,22 +14,6 @@ Publications = db["publications"]
 
 
 
-# Query
-#count = db.faculty.count_documents({"position": "Assistant Professor"})
-def publication_c():
-    count = db.faculty.aggregate([
-    {"$match": {"affiliation.name": "University of illinois at Urbana Champaign"}},
-    {"$lookup": {"from": "publications", "localField": "publications", "foreignField": "id", "as": "temp"}},
-    {"$unwind": "$temp"},
-    { "$match":{ "temp.year": {"$gte":2020}}},
-    {"$group": {"_id": "$affiliation.name", "pub_cnt": {"$sum": 1}}}
-])
-
-    for result in count:
-        print(result['pub_cnt'])
-    return result['pub_cnt']
-#publication_c()
-#print(result['pub_cnt'])
 
 university = "University of illinois at Urbana Champaign"
 
