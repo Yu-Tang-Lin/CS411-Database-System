@@ -14,7 +14,8 @@ from mysql_utils import get_university, faculty_count, keyword_count, publicatio
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # Define the layout
-app.layout = dbc.Container(
+app.layout = html.Div([   html.H1(children='Title of Dash App', style={'textAlign':'center'}),
+        dbc.Container(
     [
         dbc.Row(
             [
@@ -30,14 +31,9 @@ app.layout = dbc.Container(
                                         # faculty_count
                                         dash_table.DataTable(
                                             columns=[{'name': 'University Name', 'id': 'name'},
-                                                     {'name': 'Publication_count', 'id': 'count1'}],
+                                                     {'name': 'faculty_count', 'id': 'count1'}],
                                             id='faculty_count_table',
                                         ),
-
-
-                                        dcc.Input(id="widget-1-input", type="text", value="Widget 1"),
-                                        html.Br(),
-                                        dbc.Button("Submit", id="widget-1-button", color="primary"),
                                         dcc.Textarea(id='tid'),
                                     ]
                                 ),
@@ -135,7 +131,7 @@ app.layout = dbc.Container(
         )
     ],
     fluid=True,
-)
+) ])
 @callback(
     Output('faculty_count_table', 'data'),
     Output('tid', 'value'),
@@ -152,7 +148,7 @@ def update_table(input_value, n_clicks):
     #result = get_university(input_value)
     result = faculty_count(input_value)
     print(result)
-    return result['pub_cnt'], 'search result for :' + input_value
+    return result, 'search result for :' + input_value
 
 @callback(
     Output('publication_count_table', 'data'),
