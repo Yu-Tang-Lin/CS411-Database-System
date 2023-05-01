@@ -1,5 +1,5 @@
 # Zhanchao-YuTang\
-Title: Acadamic world dashboard.\
+Title: Academic world dashboard.\
 Purpose: What is the application scenario? Who are the target users? What are the objectives?\
 Demo: Give the link to your video demo. Read the video demo section below to understand what contents are expected in your demo.\
 Installation: How to install the application? You don’t need to include instructions on how to install and initially populate the databases if you only use the given dataset.
