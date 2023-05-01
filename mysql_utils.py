@@ -99,7 +99,7 @@ def insert_keyword(keyword_id, keyword):
         print(f"add keyword",keyword )
         with db.cursor() as cursor:
             sql2 = """
-             SELECT count(DISTINCT k.id) AS k_count 
+             SELECT count(DISTINCT k.id) AS keyword_inserted_amount
              FROM keyword k;
              """
             cursor.execute(sql2)
@@ -130,7 +130,7 @@ def delete_keyword( keyword):
         # Return the number of deleted rows
         with db.cursor() as cursor:
             sql2 = """
-             SELECT count(DISTINCT k.id) AS k_count2 
+             SELECT count(DISTINCT k.id) AS keyword_deleted_amount 
              FROM keyword k;
              """
             cursor.execute(sql2)
