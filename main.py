@@ -5,7 +5,7 @@ import dash_bootstrap_components as dbc
 import dash
 from dash import Dash, html, dcc, callback, Output, Input, dash_table, State
 import pandas as pd
-from neo4j_u import GraphDatabase
+from neo4j_utils import keyword_count
 from mongodb_utils import publication_count_by_year
 import plotly.graph_objs as go
 from mysql_utils import faculty_count, publication_count,insert_keyword,delete_keyword
@@ -15,7 +15,7 @@ import plotly.express as px
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # Define the layout
-app.layout = html.Div([   html.H1(children='Acadamic world dashboard', style={'textAlign':'center'}),
+app.layout = html.Div([   html.H1(children='University of California dashboard', style={'textAlign':'center'}),
         dbc.Container(
     [
         dbc.Row(
@@ -24,7 +24,7 @@ app.layout = html.Div([   html.H1(children='Acadamic world dashboard', style={'t
                     [
                         dbc.Card(
                             [
-                                dbc.CardHeader("Widget 1"),
+                                dbc.CardHeader("Widget 1: MYSQL"),
                                 dbc.CardBody(
                                     [
                                         dcc.Input(id='input'),
@@ -41,7 +41,7 @@ app.layout = html.Div([   html.H1(children='Acadamic world dashboard', style={'t
                         ),
                         dbc.Card(
                             [
-                                dbc.CardHeader("Widget 2"),
+                                dbc.CardHeader("Widget 2: MYSQL"),
                                 dbc.CardBody(
                                     [
                                         dcc.Input(id='input2'),
@@ -63,11 +63,11 @@ app.layout = html.Div([   html.H1(children='Acadamic world dashboard', style={'t
                     [
                         dbc.Card(
                             [
-                                dbc.CardHeader("Widget 3"),
+                                dbc.CardHeader("Widget 3: MYSQL"),
                                 dbc.CardBody(
                                     [
-                                        dcc.Input(id='input3', type='text', placeholder='Enter first string'),
-                                        dcc.Input(id='input3-2', type='text', placeholder='Enter second string'),
+                                        dcc.Input(id='input3', type='text', placeholder='Enter keyword id'),
+                                        dcc.Input(id='input3-2', type='text', placeholder='Enter keyword name'),
                                         html.Button('Submit', id='widget3-submit-button', n_clicks=0),
 
                                         html.Div(id='output'),
@@ -89,11 +89,11 @@ app.layout = html.Div([   html.H1(children='Acadamic world dashboard', style={'t
                         ),
                         dbc.Card(
                             [
-                                dbc.CardHeader("Widget 4"),
+                                dbc.CardHeader("Widget 4: MYSQL"),
                                 dbc.CardBody(
                                     [
 
-                                        dcc.Input(id='input4', type='text', placeholder='Enter second string'),
+                                        dcc.Input(id='input4', type='text', placeholder='Enter keyword name'),
                                         html.Button('Submit', id='widget4-submit-button', n_clicks=0),
                                         html.Div(id='output2'),
 
@@ -109,7 +109,7 @@ app.layout = html.Div([   html.H1(children='Acadamic world dashboard', style={'t
                     [
                         dbc.Card(
                             [
-                                dbc.CardHeader("Widget 5"),
+                                dbc.CardHeader("Widget 5: MongoDB"),
                                 dbc.CardBody(
                                     [
                                         dcc.Input(id='input5'),
@@ -126,17 +126,18 @@ app.layout = html.Div([   html.H1(children='Acadamic world dashboard', style={'t
                         ),
                         dbc.Card(
                             [
-                                dbc.CardHeader("Widget 6"),
+                                dbc.CardHeader("Widget 6: Neo4j"),
                                 dbc.CardBody(
-                                    [   dcc.Input(id='input6'),
+                                    [
+                                        dcc.Input(id='input6'),
                                         html.Button('Search', id='search_button6'),
-                                        dcc.Input(id="widget-6-input", type="text", value="Widget 6"),
-                                        html.Br(),
-                                        html.Div(id='output6'),
-                                        dbc.Button("Submit", id="widget-6-button", color="primary"),
-
                                     ]
                                 ),
+                                dcc.Graph(
+                                    id='histogram6',
+                                    figure={
+                                    }
+                                )
                             ],
                             className="mt-3",
                         ),
@@ -153,7 +154,6 @@ app.layout = html.Div([   html.H1(children='Acadamic world dashboard', style={'t
     Output('pie-chart', 'figure'),
     State('input', 'value'),
     Input('search_button', 'n_clicks'),
-
 )
 
 def update_table(input_value, n_clicks):
@@ -170,7 +170,7 @@ def update_table(input_value, n_clicks):
         'data': [{'labels': name_list,
                   'values': count1_list,
                   'type': 'pie'}],
-        'layout': {'title': 'Pie Chart'}
+        'layout': {'title': 'How many faculty in University of California for each campus?'}
     }
 
 
@@ -178,22 +178,20 @@ def update_table(input_value, n_clicks):
 ## wignet2
 @callback(
     Output('histogram', 'figure'),
-    State('input', 'value'),
+    State('input2', 'value'),
     Input('search_button2', 'n_clicks'),
-
 )
-def update_table2(input_value, n_clicks):
+def update_table(input_value, n_clicks):
     if not input_value:
         return dash.no_update
     result = publication_count(input_value)
-    print(result)
     df = pd.DataFrame(result)
     return {
         'data': [
             go.Bar(x=df['name'], y=df['count3'])
         ],
         'layout': go.Layout(
-            title='Publication Count',
+            title='How many publications in University of California for each campus?',
             xaxis={'title': 'University'},
             yaxis={'title': 'Publication Count'}
         )
@@ -211,8 +209,7 @@ def update_output(n_clicks,str1, str2):
     if n_clicks > 0 and str1 is not None and str2 is not None:
         result = insert_keyword(str1,str2)
         return html.Div([
-            html.P(f"insert keyword to database: {str2}"),
-            html.P(f"{result}")
+            html.P(f"Insert keyword: {str2} to the database")
         ])
         #return f"insert keyword to database: {str2},{result}"
 
@@ -224,14 +221,17 @@ def update_output(n_clicks,str1, str2):
     [dash.dependencies.Input('widget4-submit-button', 'n_clicks')],
     [dash.dependencies.Input('input4', 'value')])
 
-def update_output(n_clicks,str3):
+def update_output4(n_clicks,str3):
     if n_clicks > 0 and str3 is not None:
         result = delete_keyword(str3)
         return html.Div([
-            html.P(f"delete keyword to database: {str3}"),
-            html.P(f"{result}")
+            html.P(f"Delete keyword: {str3} in the database")
         ])
         #return f"delete keyword to database: {str3},{result}"
+
+
+
+
 ## wignet5
 @callback(
     Output('histogram5', 'figure'),
@@ -243,7 +243,6 @@ def update_table5(input_value, n_clicks):
     if not input_value:
         return dash.no_update
     result = publication_count_by_year(input_value)
-    print(result)
     df = result
     num_rows = len(df)
     return {
@@ -255,11 +254,48 @@ def update_table5(input_value, n_clicks):
             )
         ],
         'layout': go.Layout(
-            title='Publication Count for recent three year',
+            title='How many publications in University of California for each campus in recent three years?',
             xaxis={'title': 'University'},
             yaxis={'title': 'Publication Count'}
         )
     }
+
+
+
+
+
+
+## wignet6
+@callback(
+    Output('histogram6', 'figure'),
+    State('input6', 'value'),
+    Input('search_button6', 'n_clicks'),
+
+)
+
+
+def update_table6(input_value, n_clicks):
+    if not input_value:
+        return dash.no_update
+    result = keyword_count(input_value)
+    df = pd.DataFrame(result)
+    return {
+        'data': [
+            go.Bar(x=df['name'], y=df['keyword_count'])
+        ],
+        'layout': go.Layout(
+            title="How much research diversity is there in the University of California schools?",
+            xaxis={'title': 'University'},
+            yaxis={'title': 'Keyword Count'}
+        )
+    }
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
