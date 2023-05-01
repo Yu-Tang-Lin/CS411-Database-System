@@ -20,7 +20,7 @@ Publications = db["publications"]
 def publication_count_by_year(university):
     # Query
     university_query = { "$regex": university, "$options": "i" }
-    print("start query")
+    print("start MongoDB query")
     count = db.faculty.aggregate([
         {"$match": {"affiliation.name": university_query}},
         {"$lookup": {"from": "publications", "localField": "publications", "foreignField": "id", "as": "temp"}},
