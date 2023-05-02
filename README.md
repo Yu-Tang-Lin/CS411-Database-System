@@ -27,13 +27,13 @@ The main.py file uses the Dashboard and Dash Bootstrap libraries for view_layout
 We used various Python imported libraries such as dash, panda, dataframe, html, dcc, and plotly.expressas. We use dash_bootstrap as the framework to generate cards and we import our functions and connections from database files. 
 
 ## Database Techniques
-Database Techniques: We use techniques such as Indexing, View, Trigger, Stored procedure, and Prepared statements to meet the requirements of (R10-R12). We create 6 SQL views that can be queried. We used boostrap to generate 6 widgets. Each widget will accept input, and then generate different types of views including pie-chart, bar, histogram, tree map, and used indexing to calculate the quantity. We created SQL query statement and connect statement in database files with Prepared statements, so that it can be in main.py can be called directly without worrying about integration issues. The dataframe is used to store the data during the output procedure, and the callback equation is used to store the procedure. Finally, we created a submit trigger to better run the query process without problems.
+Database Techniques: We use techniques such as Indexing, View, Trigger, Stored procedure, constraint and Prepared statements to meet the requirements of (R10-R12). We create 6 SQL views that can be queried. We used boostrap to generate 6 widgets. Each widget will accept input, and then generate different types of views including pie-chart, bar, histogram, tree map, used indexing to calculate the quantity and apllied constraint when inserting the keyword name into keyword table. We created SQL query statement and connect statement in database files with Prepared statements, so that it can be in main.py can be called directly without worrying about integration issues. The dataframe is used to store the data during the output procedure, and the callback equation is used to store the procedure. Finally, we created a submit trigger to better run the query process without problems.
 
 ## Extra-Credit Capabilities 
 N/A.
 
 ## Contributions 
 Zhanchao: helped to implement mysql, neo4j, mongodb functions, connect the datasets through utilties, generate cards and layout using bootstrap components, helped to generate some graphs (histogram, pie-chart, bar) for each widget, write callback functions for each widget.
-Yu-Tang: Wrote the query for wignet1, wignet2, wignet5 wignet6, including mysql, neo4j, mongodb database. Design the return and callback function by dataframe to the main.py in order to plot  histogram, pie-chart, bar and tree map. 
+Yu-Tang: Wrote the query for wignet1, wignet2, wignet5 wignet6, including mysql, neo4j, mongodb database. Designed the return and callback function by dataframe to the main.py in order to plot  histogram, pie-chart, bar and tree map. Applied constraint into the keyword table to avoid the duplicated keyword name 
 
 Each team member spent around 30-35 hours on the project.
