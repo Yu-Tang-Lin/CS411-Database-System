@@ -4,7 +4,6 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 import dash
 from dash import Dash, html, dcc, callback, Output, Input, dash_table, State
-import pandas as pd
 from neo4j_utils import keyword_count
 from mongodb_utils import publication_count_by_year
 import plotly.graph_objs as go
@@ -209,9 +208,10 @@ def update_output(n_clicks,str1, str2):
     if n_clicks > 0 and str1 is not None and str2 is not None:
         result = insert_keyword(str1,str2)
         return html.Div([
-            html.P(f"Insert keyword: {str2} to the database")
+            html.P(f"insert keyword to database: {str2}"),
+            html.P(f"keyword amount: {result[0]['keyword_inserted_amount']}")
         ])
-        #return f"insert keyword to database: {str2},{result}"
+        return f"insert keyword to database: {str2},{result}"
 
 
 #widget4
@@ -225,9 +225,10 @@ def update_output4(n_clicks,str3):
     if n_clicks > 0 and str3 is not None:
         result = delete_keyword(str3)
         return html.Div([
-            html.P(f"Delete keyword: {str3} in the database")
+            html.P(f"delete keyword to database: {str3}"),
+            html.P(f"keyword amount: {result[0]['keyword_deleted_amount']}")
         ])
-        #return f"delete keyword to database: {str3},{result}"
+        return f"delete keyword to database: {str3},{result}"
 
 
 
