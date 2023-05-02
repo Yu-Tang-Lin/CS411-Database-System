@@ -35,4 +35,5 @@ N/A.
 ## Contributions 
 Zhanchao: helped to implement mysql, neo4j, mongodb functions, connect the datasets through utilties, generate cards and layout using bootstrap components, helped to generate some graphs (histogram, pie-chart, bar) for each widget, write callback functions for each widget.
 Yu-Tang: Wrote the query for wignet1, wignet2, wignet5 wignet6, including mysql, neo4j, mongodb database. Design the return and callback function by dataframe to the main.py in order to plot  histogram, pie-chart, bar and tree map. 
+
 Each team member spent around 30-35 hours on the project.
