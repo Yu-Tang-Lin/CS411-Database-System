@@ -14,7 +14,7 @@ import plotly.express as px
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # Define the layout
-app.layout = html.Div([   html.H1(children='University of California dashboard', style={'textAlign':'center'}),
+app.layout = html.Div([   html.H1(children='Academic world dashboard', style={'textAlign':'center'}),
         dbc.Container(
     [
         dbc.Row(
@@ -25,7 +25,7 @@ app.layout = html.Div([   html.H1(children='University of California dashboard',
                             [
                                 dbc.CardHeader("Widget 1: MYSQL"),
                                 dbc.CardBody(
-                                    [
+                                    [。  html.H6('faculty count for each university'),
                                         dcc.Input(id='input'),
                                         html.Button('Search', id='search_button'),
                                     ]
@@ -42,7 +42,7 @@ app.layout = html.Div([   html.H1(children='University of California dashboard',
                             [
                                 dbc.CardHeader("Widget 2: MYSQL"),
                                 dbc.CardBody(
-                                    [
+                                    [   html.H6('publication count for each university'),
                                         dcc.Input(id='input2'),
                                         html.Button('Search', id='search_button2'),
                                     ]
@@ -64,7 +64,7 @@ app.layout = html.Div([   html.H1(children='University of California dashboard',
                             [
                                 dbc.CardHeader("Widget 3: MYSQL"),
                                 dbc.CardBody(
-                                    [
+                                    [   html.H6('insert keyword to database'),
                                         dcc.Input(id='input3', type='text', placeholder='Enter keyword id'),
                                         dcc.Input(id='input3-2', type='text', placeholder='Enter keyword name'),
                                         html.Button('Submit', id='widget3-submit-button', n_clicks=0),
@@ -91,7 +91,7 @@ app.layout = html.Div([   html.H1(children='University of California dashboard',
                                 dbc.CardHeader("Widget 4: MYSQL"),
                                 dbc.CardBody(
                                     [
-
+                                        html.H6('delete keyword to database'),
                                         dcc.Input(id='input4', type='text', placeholder='Enter keyword name'),
                                         html.Button('Submit', id='widget4-submit-button', n_clicks=0),
                                         html.Div(id='output2'),
@@ -110,7 +110,7 @@ app.layout = html.Div([   html.H1(children='University of California dashboard',
                             [
                                 dbc.CardHeader("Widget 5: MongoDB"),
                                 dbc.CardBody(
-                                    [
+                                    [   html.H6('total publication count for recent years for California university'),
                                         dcc.Input(id='input5'),
                                         html.Button('Search', id='search_button5'),
                                     ]
@@ -127,7 +127,7 @@ app.layout = html.Div([   html.H1(children='University of California dashboard',
                             [
                                 dbc.CardHeader("Widget 6: Neo4j"),
                                 dbc.CardBody(
-                                    [
+                                    [   html.H6('total distinct keyword count for university'),
                                         dcc.Input(id='input6'),
                                         html.Button('Search', id='search_button6'),
                                     ]
