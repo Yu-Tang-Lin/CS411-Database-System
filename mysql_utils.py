@@ -40,12 +40,15 @@ def publication_count(input_value):
         return result
 
 #question c
+
+
 def insert_keyword(keyword_id, keyword):
     with db.cursor() as cursor:
+
         # SQL query to insert a new keyword into the 'keyword' table
         sql = """
         INSERT INTO keyword (id, name)
-        VALUES (%s, %s)
+        VALUES (%s, %s)        
         """
         # Execute the query with parameters
         cursor.execute(sql, (keyword_id, keyword))
@@ -64,6 +67,20 @@ def insert_keyword(keyword_id, keyword):
         # Return the last inserted ID
         return result
 
+
+# adding constraint for unique keyword name
+def add_constraint():
+    with db.cursor() as cursor:
+        # Add unique constraint for keyword name
+        unique_keyword_name = """
+        ALTER TABLE keyword
+        ADD CONSTRAINT keyword_name_unique UNIQUE (name)
+        """
+        cursor.execute(unique_keyword_name)
+
+        # Commit the changes to the database
+        db.commit()
+#constraint = add_constraint()
 
 #question d
 def delete_keyword( keyword):
