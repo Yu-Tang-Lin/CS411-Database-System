@@ -8,6 +8,7 @@ The purpose of this app is to provide more information about recent publications
 
 ## Demo
 Please refer to the video demo to get a better understanding of the features.
+
 https://mediaspace.illinois.edu/media/t/1_lxqg2nil
 
 ## Installation 
