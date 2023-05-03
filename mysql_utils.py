@@ -21,6 +21,10 @@ def faculty_count(input_value):
        WHERE u.name like "%""" + input_value + '%"  GROUP BY u.name;'
        cursor.execute(sql)
        result = cursor.fetchall()
+       sql2=' DROP INDEX  IF EXISTS faculty_email_index ON faculty; '
+       sql3='CREATE INDEX faculty_email_index ON faculty (email);'
+       #cursor.execute(sql2)
+       #cursor.execute(sql3)
        return result
 
 #question b
