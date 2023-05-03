@@ -21,6 +21,7 @@ def faculty_count(input_value):
        WHERE u.name like "%""" + input_value + '%"  GROUP BY u.name;'
        cursor.execute(sql)
        result = cursor.fetchall()
+       # Implement index for faculty count 
        sql2=' DROP INDEX  IF EXISTS faculty_email_index ON faculty; '
        sql3='CREATE INDEX faculty_email_index ON faculty (email);'
        #cursor.execute(sql2)
@@ -114,7 +115,7 @@ def delete_keyword( keyword):
 
 
 """
-## Testing code
+### Testing code
 result = insert_keyword(keyword_id, keyword)
 print(result)
 result = delete_keyword( keyword)
