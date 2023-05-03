@@ -7,7 +7,7 @@ Academic world dashboard.
 The purpose of this app is to provide more information about recent publications based on keywords, and the direction of school research. This is for any user, including teachers and students, who wish to find school research topics and papers based on their interests to better match their academic background.
 
 ## Demo
-Please refer to the video demo to get a better understanding of the features. [Link to video demo]
+Please refer to the video demo to get a better understanding of the features.
 
 ## Installation 
 After downloading the dashboard and dash_bootstrap, run the application using the command "py main.py".
