@@ -1,4 +1,4 @@
-# Zhanchao_YuTang
+# CS411-Database-System
 
 ## Title 
 Academic world dashboard.
