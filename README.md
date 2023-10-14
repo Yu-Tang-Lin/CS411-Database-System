@@ -31,9 +31,6 @@ We used various Python imported libraries such as dash, panda, dataframe, html, 
 ## Database Techniques
 Database Techniques: We use techniques such as indexing, stored procedure and constraint to meet the requirements of (R10-R12). We create 6 Neo4j, SQL, and MongoDB query views that can be queried. We used boostrap to generate 6 widgets. Each widget will accept input, and then generate different types of views including pie-chart, bar, histogram, tree map, used indexing to calculate and accelerate the query and applied constraint when inserting the keyword name into keyword table by stored procedure. We created SQL query statement and connect statement in database files with prepared statements, so that it can be in main.py can be called directly without worrying about integration issues. The dataframe is used to store the data during the output procedure, and the callback equation is used to store the procedure. Finally, we created a submit trigger to better run the query process without problems.
 
-## Extra-Credit Capabilities 
-N/A.
-
 ## Contributions 
 Zhanchao: helped to implement mysql, neo4j, mongodb functions, connect the datasets through utilties, generate cards and layout using bootstrap components, helped to generate some graphs (histogram, pie-chart, bar) for each widget, write callback functions for each widget.
 
